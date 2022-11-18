@@ -1,0 +1,48 @@
+{
+  "name": "backend_ecommerce",
+  "version": "0.0.1",
+  "description": "Meu primeiro app web com express",
+  "main": "app.js",
+  "scripts": {
+    "watch": " ",
+    "start": "node app.js",
+    "test": " "
+  },
+  "author": "Henrique Magno",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "hbs": "^4.2.0",
+    "mariadb": "^3.0.2",
+    "mysql2": "^2.3.3",
+    "netstat": "^0.0.2",
+    "nodemailer": "^6.8.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "pug": "^3.0.2",
+    "sequelize": "^6.25.5",
+    "sqlite3": "^5.1.2",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BootcampinfnetHM/express-infnet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BootcampinfnetHM/express-infnet/issues"
+  },
+  "homepage": "https://github.com/BootcampinfnetHM/express-infnet#readme"
+}
