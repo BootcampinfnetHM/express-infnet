@@ -33,9 +33,5 @@ router.delete ('/:id', async (req, res) => {
     res.send(result.msg)
 })
 
-// router.put ('/:id', async (req, res) => { 
-//     let result = await categoriesCtrl.updateCategroy(req.params.id, {})
-//     res.send('Dados alterados com sucesso!')
-// })
 
 module.exports = router
