@@ -111,7 +111,7 @@ class UserController extends GenericController  {
             <h1> Confirmação de email </h1>
             // <p> Código de confirmação de email: ${data.token} </p>`
     
-            // mail.sendEmail(data.email, "Validação de email", html)
+            mail.sendEmail(data.email, "Validação de email", html)
 
             return {
                 status: 200,
