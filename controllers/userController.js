@@ -3,20 +3,12 @@ const UserModel = require('../models/UserModel');
 const GenericController = require('./GenericController');
 const Op = Sequelize.Op
 
+const MailSClass = require('../utils/Mail'),
+      mail = new MailSClass()
+
 const bcryptjs = require('bcryptjs')
 
 class UserController extends GenericController  {
-
-    generateOrder2(params) {
-        let order = [Sequelize.literal('"id"'), 'DESC']
-
-        if (params.order) {
-            order = params.order.split(",")
-
-        }
-
-        return [order]
-    }
 
     async getUsers(params) {
             try{
@@ -30,8 +22,8 @@ class UserController extends GenericController  {
                         limit: parseInt(limit)
                     }
 
-                    const order = this.generateOrder(params)
-                    
+                    const order = this.generateOrder(params)       
+
                 if (params.search) {
                     let lowerCaseSearch = params.search
                     lowerCaseSearch.toLowerCase()
@@ -46,11 +38,13 @@ class UserController extends GenericController  {
                                     },
                                 },
                                 order: order,
-                                ...paramsLimit,
-                                
-
+                                ...paramsLimit,                           
                         })
-                        }                        
+                        } 
+                        return {
+                            result,
+                            status: 200,
+                        }                       
                     }
                 
                 if(params.search == '' || params.search == undefined || params.search == null ) {
@@ -67,8 +61,7 @@ class UserController extends GenericController  {
                             msg: 'Nenhum usuáiro com ID foi encontrado.',
                             result: await UserModel.findAll(paramsLimit)
                         }
-                    }
-                // console.log(i)       
+                    }     
                 return result
             }
             catch(err) {
@@ -98,19 +91,32 @@ class UserController extends GenericController  {
                 }
             }
             catch(err){
-                let result; 
-                console.log(err + 'oi')
+
                 return result = {
                         status: 500,
-                        result: {}
+                        result: {},
+                        msg: '(Erro) 500: ' + err.toString()
                     }  
             }
     }
     async createUser(data) {
         try{
+            
+
             data.password = bcryptjs.hashSync(data.password, 10)
-            const novoProduto = await UserModel.create(data)
-            return `Novo produto ${novoProduto.id} criado com sucesso` 
+            data.token = this.generatePin()
+            const novoUsuario = await UserModel.create(data)
+
+            let html = `
+            <h1> Confirmação de email </h1>
+            // <p> Código de confirmação de email: ${data.token} </p>`
+    
+            // mail.sendEmail(data.email, "Validação de email", html)
+
+            return {
+                status: 200,
+                result: `Novo usuário ${novoUsuario.username} criado com sucesso` 
+            }
         }
         catch(err) {
             return {
@@ -123,13 +129,16 @@ class UserController extends GenericController  {
 
     async updateUser(id, data) {
         try{
-            console.log(id, data)
             await UserModel.update(data, {
                 where: {
                     id: id
                 }
             })
-            return `Produto ${id} uatualizado com sucesso`
+            return {
+                
+                status:200,
+                result: `Usuário ${id} uatualizado com sucesso`
+            }
         } 
         catch(err){
             return {

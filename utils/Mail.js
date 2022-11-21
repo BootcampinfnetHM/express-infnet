@@ -16,10 +16,9 @@ class Mail {
     }
 
     async sendEmail(to, subject, html){
-
         let data = {
-            from: process.env.EMAIL,
-            to: "henrique.carvalho@al.infnet.edu.br",
+            from: "henrique.carvalho@al.infnet.edu.br",
+            to,
             subject,
             // text: "Corpo do email",
             html,

@@ -28,11 +28,20 @@ const UserModel = db.define("user", {
         allowNull: false,
         unique: true
     },
-    // role: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    //     defaultValue: 2
-    // }
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 2
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    token: {
+        type: DataTypes.STRING,
+        allowNull: true,
+
+    }
 })
 
 module.exports = UserModel
