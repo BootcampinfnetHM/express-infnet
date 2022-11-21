@@ -19,6 +19,10 @@ class GenericController {
 
         return [order]
     }
+
+    generatePin = () => {
+        return Math.random().toString().substr(2, 4)
+    }
 }
 
 
